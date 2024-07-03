@@ -39,4 +39,19 @@ public class CustomerRestController {
         return customer;
     }
 
+    @PutMapping("/clientes")
+    public Customer putCliente(@RequestBody Customer customer) {
+        for (Customer c : customers) {
+            if (c.getId() == customer.getId()) {
+                c.setName(customer.getName());
+                c.setUserName(customer.getUserName());
+                c.setPassword(customer.getPassword());
+
+                return c;
+            }
+        }
+
+        return null; // pésima práctica
+    }
+
 }

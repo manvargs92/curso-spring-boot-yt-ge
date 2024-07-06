@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequestMapping("/clientes") // para unificar las rutas
 public class CustomerRestController {
 
     private List<Customer> customers = new ArrayList<>(Arrays.asList(
@@ -17,12 +18,16 @@ public class CustomerRestController {
             new Customer(234, "Carlos Martínez", "carlitosm", "passw3456")
     ));
 
-    @GetMapping("/clientes")
+    //@GetMapping("/clientes")
+    //@GetMapping
+    @RequestMapping(method = RequestMethod.GET)
     public List<Customer> getCustomers() {
         return customers;
     }
 
-    @GetMapping("/clientes/{username}")
+    //@GetMapping("/clientes/{username}")
+    //@GetMapping("/{username}")
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public Customer getCliente(@PathVariable String username) {
         for(Customer customer : customers) {
             if (customer.getUserName().equalsIgnoreCase(username)) {
@@ -33,13 +38,17 @@ public class CustomerRestController {
         return null; // pésima práctica
     }
 
-    @PostMapping("/clientes")
+    //@PostMapping("/clientes")
+    //@PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public Customer postCliente(@RequestBody Customer customer) {
         customers.add(customer);
         return customer;
     }
 
-    @PutMapping("/clientes")
+    //@PutMapping("/clientes")
+    //@PutMapping
+    @RequestMapping(method = RequestMethod.PUT)
     public Customer putCliente(@RequestBody Customer customer) {
         for (Customer c : customers) {
             if (c.getId() == customer.getId()) {
@@ -54,7 +63,9 @@ public class CustomerRestController {
         return null; // pésima práctica
     }
 
-    @DeleteMapping("/clientes/{id}")
+    //@DeleteMapping("/clientes/{id}")
+    //@DeleteMapping("/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Customer deleteCliente(@PathVariable int id) {
         for (Customer customer : customers) {
             if (customer.getId() == id) {
@@ -67,7 +78,9 @@ public class CustomerRestController {
         return null; // pésima práctica
     }
 
-    @PatchMapping("/clientes")
+    //@PatchMapping("/clientes")
+    //@PatchMapping
+    @RequestMapping(method = RequestMethod.DELETE)
     public Customer patchCliente(@RequestBody Customer customer) {
         for (Customer c : customers) {
             if (c.getId() == customer.getId()) {
